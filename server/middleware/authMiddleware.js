@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+const Users = require('../models/Users');
 
 const authMideleware = async(req, res, next) => {
     const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -10,7 +10,7 @@ const authMideleware = async(req, res, next) => {
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decoded.id);
+        const user = await Users.findById(decoded.id);
         if (!user){
             throw new Error();
         }
